@@ -20,8 +20,4 @@
     <PackageReference Include="System.Spatial" Version="5.8.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

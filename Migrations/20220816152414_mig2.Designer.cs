@@ -2,15 +2,17 @@
 using Belsis_Parselasyon_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Belsis_Parselasyon_Backend_with_PGgis.Migrations
 {
     [DbContext(typeof(ParcelDbContext))]
-    partial class ParcelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220816152414_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

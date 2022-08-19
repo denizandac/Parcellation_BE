@@ -13,8 +13,8 @@ namespace Belsis_Parselasyon_Backend_with_PGgis.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    il_name = table.Column<string>(type: "text", nullable: true),
-                    geomectric_features = table.Column<int>(type: "integer", nullable: false)
+                    lon = table.Column<float>(type: "float", nullable: false),
+                    lat = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

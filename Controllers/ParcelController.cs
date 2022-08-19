@@ -3,8 +3,10 @@ using Belsis_Parselasyon_Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
 using System.Linq;
+using System.Globalization;
 
 namespace BelsisParselasyon.Controllers
 {
@@ -35,38 +37,17 @@ namespace BelsisParselasyon.Controllers
             }
         }
 
-        [HttpGet()]
-        [Route("compare/{point_wkt}")]
-        public bool IsInTurkey(string point_wkt)
+        [HttpGet]
+        [Route("Intersect")]
+        public Parcel DoesIntersect(float lon, float lat)
         {
-            //Npgsql.NpgsqlCommand cmd = new Npgsql.NpgsqlCommand("SELECT ST_Intersects(ST_SetSRID(ST_MakePoint(35.32596524698479, 37.015461417617914),4326), geom) FROM province_polygon where gid = 1");
-            //    cmd.ExecuteNonQuery();
-            if (point_wkt == "hello")
+            using (var ParcelDbContext = _parcel)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                var SQL = $"SELECT gid as id,adm1_tr as il,adm1_tr as ilce,'0' as wkt FROM public.province_polygon WHERE ST_Intersects(geom, ST_SetSRID(ST_MakePoint({lon.ToString().Replace(",", ".")}, {lat.ToString().Replace(",", ".")}), 4326)) ORDER BY gid ASC  ";
+                var result = ParcelDbContext.Parcels.FromSqlRaw(SQL);
+                return result.FirstOrDefault(); 
             }
         }
-
-        [HttpGet()]
-        [Route("intersect")]
-        public bool DoesIntersect(string point_wkt)
-        {
-            //Npgsql.NpgsqlCommand cmd = new Npgsql.NpgsqlCommand("SELECT ST_Intersects(ST_SetSRID(ST_MakePoint(35.32596524698479, 37.015461417617914),4326), geom) FROM province_polygon where gid = 1");
-            //cmd.ExecuteNonQuery();
-            if (point_wkt == "hello")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
 
 
 
